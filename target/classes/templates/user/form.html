@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Codando A Vida - Usuário</title>
+  <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+</head>
+<body>
+  <div th:insert="~{fragments/utils::navbar}"></div>
+
+  <div class="container col-md">
+    <h1 th:text="${user?.id}? 'Editar Usuário' : 'Adicionar Usuário'"></h1>
+    <div th:insert="~{fragments/utils::messages}"></div>
+
+    <form method="POST" th:object="${user}" th:action="@{/user/save}">
+      <input type="hidden" name="id" th:field="*{id}" />
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Nome</label>
+        <input id="name" type="text" class="form-control" name="name" th:field="*{name}"/>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input id="email" type="email" class="form-control" name="name" th:field="*{email}"/>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Senha</label>
+        <input id="password" type="password" class="form-control" name="password" th:field="*{password}" />
+      </div>
+
+      <div class="mb-3">
+        <label for="role" class="form-label">Permissões</label>
+        <select id="role" class="form-select" name="role" th:field="*{role}">
+          <option th:value="'USER'">User</option>
+          <option th:value="'ADMIN'">Admin</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+  </div>
+
+  <div th:insert="~{fragments/utils::footer}"></div>
+</body>
+</html>
