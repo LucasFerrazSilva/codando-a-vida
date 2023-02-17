@@ -60,6 +60,11 @@ public class User {
         this.updateDate = LocalDateTime.now();
     }
 
+    public void inactivate() {
+        this.status = "INACTIVE";
+        this.updateDate = LocalDateTime.now();
+    }
+
     public Integer getId() {
         return id;
     }

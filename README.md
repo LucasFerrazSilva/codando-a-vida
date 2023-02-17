@@ -4,7 +4,7 @@ Codando a Vida is a blog. This project was created to improve my Spring Boot kno
 ## TODOs
 
 CRUD de usuários:
-- [ ] Criar endpoint para inativação de usuário
+- [X] Criar endpoint para inativação de usuário
 - [ ] Adicionar filtros
 - [ ] Salvar senhas encriptadas
 - [ ] Substituir campos String por Enums

@@ -20,6 +20,10 @@ public class UserService {
         return repository.findAll();
     }
 
+    public List<User> findAllActive() {
+        return repository.findByStatusIs("ACTIVE");
+    }
+
     public User findById(Integer id) {
         return repository.findById(id).orElseThrow();
     }
@@ -27,5 +31,11 @@ public class UserService {
     @Transactional
     public void save(User obj) {
         repository.save(obj);
+    }
+
+    @Transactional
+    public void inactivate(User user) {
+        user.inactivate();
+        repository.save(user);
     }
 }

@@ -35,7 +35,7 @@ public class UserController {
     @GetMapping
     public ModelAndView list() {
         ModelAndView view = new ModelAndView("user/list");
-        view.addObject("users", service.findAll());
+        view.addObject("users", service.findAllActive());
         return view;
     }
 
@@ -76,6 +76,20 @@ public class UserController {
             view.addObject("message", e.getMessage());
             view.addObject("user", obj);
             return view;
+        }
+    }
+
+    @GetMapping("/delete/{id}")
+    public String inactivate(@PathVariable(value="id") Integer id, RedirectAttributes redirectAttributes) {
+        try {
+            User user = service.findById(id);
+            service.inactivate(user);
+            redirectAttributes.addFlashAttribute("successMessage", "Usuário " + user.getName() + " inativado com sucesso!");
+        } catch (NoSuchElementException e) {
+            redirectAttributes.addFlashAttribute("message", "ID inválido " + id);
+        }
+        finally {
+            return "redirect:/user";
         }
     }
 
