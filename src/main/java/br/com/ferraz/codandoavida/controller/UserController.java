@@ -4,6 +4,9 @@ import br.com.ferraz.codandoavida.dto.UserDTO;
 import br.com.ferraz.codandoavida.model.User;
 import br.com.ferraz.codandoavida.service.UserService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -34,9 +37,10 @@ public class UserController {
     }
 
     @GetMapping
-    public ModelAndView list(UserDTO dto) {
+    public ModelAndView list(UserDTO dto, @PageableDefault(size=5) Pageable pageable) {
         ModelAndView view = new ModelAndView("user/list");
-        view.addObject("users", service.findAllActive(dto));
+        Page<User> page = service.findAllActive(dto, pageable);
+        view.addObject("users", page);
         view.addObject("dto", dto);
         return view;
     }

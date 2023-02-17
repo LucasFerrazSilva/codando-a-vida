@@ -3,6 +3,8 @@ package br.com.ferraz.codandoavida.service;
 import br.com.ferraz.codandoavida.dto.UserDTO;
 import br.com.ferraz.codandoavida.model.User;
 import br.com.ferraz.codandoavida.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -25,8 +27,10 @@ public class UserService {
         return repository.findByStatusIs("ACTIVE");
     }
 
-    public List<User> findAllActive(UserDTO dto) {
-        return repository.findByStatusAndNameAndEmailAndRole("ACTIVE", dto.getName(), dto.getEmail(), dto.getRole());
+    public Page<User> findAllActive(UserDTO dto, Pageable pageable) {
+        return repository.findByStatusAndNameAndEmailAndRole(
+                "ACTIVE", dto.getName(), dto.getEmail(), dto.getRole(), pageable
+        );
     }
 
     public User findById(Integer id) {

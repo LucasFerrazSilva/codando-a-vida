@@ -17,7 +17,7 @@
     <a class="btn btn-primary" th:href="@{/user/create}">Adicionar</a>
 
     <div class="table-filters">
-      <form method="GET" th:action="@{'/user'}" th:object="${dto}">
+      <form id="filters-form" method="GET" th:action="@{'/user'}" th:object="${dto}">
         <div class="row g-3 align-items-center">
           <div class="col">
             <input type="text" class="form-control" placeholder="Nome" name="name" th:field="*{name}" />
@@ -38,6 +38,8 @@
           <div class="col-1">
             <button type="submit" class="btn btn-secondary"><i class="bi-search"></i></button>
           </div>
+
+          <input id="page-number-input" type="hidden" name="page" th:value="${users.pageable.pageNumber}" />
         </div>
       </form>
     </div>
@@ -52,7 +54,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr data-th-each="user: ${users}">
+      <tr data-th-each="user: ${users.content}">
         <td data-th-text="${user.name}"></td>
         <td data-th-text="${user.email}"></td>
         <td data-th-text="${user.role}"></td>
@@ -63,8 +65,52 @@
       </tr>
       </tbody>
     </table>
+
+    <div class="row g-2 align-items-center">
+      <div class="col-auto">
+        <span>Número de items: <span th:text="${users.numberOfElements + users.pageable.offset}"></span>/<span th:text="${users.totalElements}"></span></span>
+      </div>
+
+      <div class="col-auto">
+        <label for="number-of-items" class="col-form-label">Items por página</label>
+      </div>
+
+      <div class="col-auto">
+        <select id="number-of-items" class="form-control" form="filters-form" name="size" th:data-size="${users.pageable.pageSize}">
+          <option value="1">1</option>
+          <option value="5" selected>5</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+
+      <div class="col-auto">
+        <nav aria-label="Page navigation col-auto">
+          <ul class="pagination justify-content-end">
+            <li th:class="${users.pageable.pageNumber == 0} ?  'page-item disabled' : 'page-item'"
+                th:data-pageNumber="${users.pageable.pageNumber - 1}">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li data-th-each="index: ${#numbers.sequence(1, users.totalPages)}"
+                th:class="${users.pageable.pageNumber + 1 == index} ? 'page-item active' : 'page-item'"
+                th:data-pageNumber="${index - 1}">
+              <a class="page-link" href="#" th:text="${index}"></a>
+            </li>
+            <li th:class="${users.pageable.pageNumber == users.totalPages - 1} ?  'page-item disabled' : 'page-item'"
+                th:data-pageNumber="${users.pageable.pageNumber + 1}">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
   </div>
 
   <div th:insert="~{fragments/utils::footer}"></div>
+
+  <script th:src="@{/js/user_list.js}"></script>
 </body>
 </html>

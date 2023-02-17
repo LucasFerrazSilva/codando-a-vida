@@ -1,6 +1,8 @@
 package br.com.ferraz.codandoavida.repository;
 
 import br.com.ferraz.codandoavida.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,11 +21,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "and (:email IS NULL OR u.email LIKE CONCAT('%', :email, '%')) " +
             "and (:role IS NULL OR u.role LIKE CONCAT('%', :role, '%')) "
     )
-    List<User> findByStatusAndNameAndEmailAndRole(
+    Page<User> findByStatusAndNameAndEmailAndRole(
         @Param("status") String status,
         @Param("name") String name,
         @Param("email") String email,
-        @Param("role") String role
+        @Param("role") String role,
+        Pageable pageable
     );
 
 }
