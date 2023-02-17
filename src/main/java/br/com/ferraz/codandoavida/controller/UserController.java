@@ -16,6 +16,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validator;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,9 +34,10 @@ public class UserController {
     }
 
     @GetMapping
-    public ModelAndView list() {
+    public ModelAndView list(UserDTO dto) {
         ModelAndView view = new ModelAndView("user/list");
-        view.addObject("users", service.findAllActive());
+        view.addObject("users", service.findAllActive(dto));
+        view.addObject("dto", dto);
         return view;
     }
 

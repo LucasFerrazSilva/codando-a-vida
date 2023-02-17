@@ -3,19 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <title>Codando A Vida - Usuários</title>
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <div th:insert="~{fragments/utils::stylesheets}"></div>
 </head>
 <body>
   <div th:insert="~{fragments/utils::navbar}"></div>
 
   <div class="container col-md">
     <h1>Listagem de Usuários</h1>
+
     <div th:insert="~{fragments/utils::messages}"></div>
 
     <a class="btn btn-primary" th:href="@{/user/create}">Adicionar</a>
 
     <div class="table-filters">
+      <form method="GET" th:action="@{'/user'}" th:object="${dto}">
+        <div class="row g-3 align-items-center">
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Nome" name="name" th:field="*{name}" />
+          </div>
 
+          <div class="col-6">
+            <input type="text" class="form-control" placeholder="E-mail" name="email" th:field="*{email}" />
+          </div>
+
+          <div class="col">
+            <select class="form-select" name="role" th:field="*{role}">
+              <option selected value="">Permissões</option>
+              <option value="ADMIN">Admin</option>
+              <option value="USER">User</option>
+            </select>
+          </div>
+
+          <div class="col-1">
+            <button type="submit" class="btn btn-secondary"><i class="bi-search"></i></button>
+          </div>
+        </div>
+      </form>
     </div>
 
     <table class="table">

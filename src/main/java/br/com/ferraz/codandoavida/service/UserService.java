@@ -1,5 +1,6 @@
 package br.com.ferraz.codandoavida.service;
 
+import br.com.ferraz.codandoavida.dto.UserDTO;
 import br.com.ferraz.codandoavida.model.User;
 import br.com.ferraz.codandoavida.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,10 @@ public class UserService {
 
     public List<User> findAllActive() {
         return repository.findByStatusIs("ACTIVE");
+    }
+
+    public List<User> findAllActive(UserDTO dto) {
+        return repository.findByStatusAndNameAndEmailAndRole("ACTIVE", dto.getName(), dto.getEmail(), dto.getRole());
     }
 
     public User findById(Integer id) {
