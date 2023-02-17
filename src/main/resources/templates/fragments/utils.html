@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="navbar">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{/}">Codando A Vida</a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{/user}">Usuários</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div th:fragment="messages">
+        <p th:text="${message}" th:if="${message}" class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3"></p>
+        <p th:text="${successMessage}" th:if="${successMessage}" class="p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3"></p>
+    </div>
+
+    <div th:fragment="footer">
+        <footer class="bg-light text-center text-lg-start">
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2023 Copyright
+            </div>
+            <!-- Copyright -->
+        </footer>
+    </div>
+
+</body>
+</html>

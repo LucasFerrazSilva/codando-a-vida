@@ -1,5 +1,7 @@
 package br.com.ferraz.codandoavida.model;
 
+import br.com.ferraz.codandoavida.dto.UserDTO;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -16,17 +18,47 @@ public class User {
     @Column(name="NAME", nullable = false, length=100)
     private String name;
 
+    @Column(name="EMAIL", nullable = false)
+    private String email;
+
     @Column(name="PASSWORD", nullable = false, length = 255)
     private String password;
 
     @Column(name="ROLE", nullable = false, length = 100)
     private String role;
 
+    @Column(name="STATUS", nullable = false, length = 100)
+    private String status;
+
     @Column(name="CREATION_DATE", nullable = false)
     private LocalDateTime creationDate;
 
     @Column(name="UPDATE_DATE")
     private LocalDateTime updateDate;
+
+    public User() {
+        this.creationDate = LocalDateTime.now();
+        this.status = "ACTIVE";
+    }
+
+    public User(Integer id, String name, String email, String password, String role, String status, LocalDateTime creationDate, LocalDateTime updateDate) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.status = status;
+        this.creationDate = creationDate;
+        this.updateDate = updateDate;
+    }
+
+    public void update(UserDTO dto) {
+        this.name = dto.getName();
+        this.email = dto.getEmail();
+        this.password = dto.getPassword();
+        this.role = dto.getRole();
+        this.updateDate = LocalDateTime.now();
+    }
 
     public Integer getId() {
         return id;
@@ -44,6 +76,14 @@ public class User {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -58,6 +98,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public LocalDateTime getCreationDate() {
@@ -81,14 +129,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(password, user.password)
-                && Objects.equals(role, user.role) && Objects.equals(creationDate, user.creationDate)
-                && Objects.equals(updateDate, user.updateDate);
+        return id.equals(user.id) && name.equals(user.name) && email.equals(user.email) && password.equals(user.password) && role.equals(user.role) && status.equals(user.status) && creationDate.equals(user.creationDate) && Objects.equals(updateDate, user.updateDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, password, role, creationDate, updateDate);
+        return Objects.hash(id, name, email, password, role, status, creationDate, updateDate);
     }
-
 }
