@@ -66,26 +66,17 @@
       </tbody>
     </table>
 
-    <div class="row g-2 align-items-center">
-      <div class="col-auto">
-        <span>Número de items: <span th:text="${users.numberOfElements + users.pageable.offset}"></span>/<span th:text="${users.totalElements}"></span></span>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="col align-middle">
+        <span>
+          Mostrando <span th:text="${1 + users.pageable.offset}"></span> a
+          <span th:text="${users.numberOfElements + users.pageable.offset}"></span>
+          de <span th:text="${users.totalElements}"></span></span>
       </div>
 
-      <div class="col-auto">
-        <label for="number-of-items" class="col-form-label">Items por página</label>
-      </div>
-
-      <div class="col-auto">
-        <select id="number-of-items" class="form-control" form="filters-form" name="size" th:data-size="${users.pageable.pageSize}">
-          <option value="1">1</option>
-          <option value="5" selected>5</option>
-          <option value="10">10</option>
-        </select>
-      </div>
-
-      <div class="col-auto">
-        <nav aria-label="Page navigation col-auto">
-          <ul class="pagination justify-content-end">
+      <div class="col">
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
             <li th:class="${users.pageable.pageNumber == 0} ?  'page-item disabled' : 'page-item'"
                 th:data-pageNumber="${users.pageable.pageNumber - 1}">
               <a class="page-link" href="#" aria-label="Previous">
@@ -106,6 +97,20 @@
           </ul>
         </nav>
       </div>
+
+      <div class="col row justify-content-end">
+        <div class="col-auto">
+          <label for="number-of-items" class="col-form-label">Items por página</label>
+        </div>
+
+        <div class="col-auto">
+          <select id="number-of-items" class="form-control" form="filters-form" name="size" th:data-size="${users.pageable.pageSize}">
+            <option value="5" selected>5</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+      </div>
+
     </div>
   </div>
 
