@@ -2,6 +2,7 @@ package br.com.ferraz.codandoavida.service;
 
 import br.com.ferraz.codandoavida.dto.UserDTO;
 import br.com.ferraz.codandoavida.enums.Status;
+import br.com.ferraz.codandoavida.enums.UserRole;
 import br.com.ferraz.codandoavida.model.User;
 import br.com.ferraz.codandoavida.repository.UserRepository;
 import org.springframework.data.domain.Page;
@@ -50,5 +51,9 @@ public class UserService {
     public void inactivate(User user) {
         user.inactivate();
         repository.save(user);
+    }
+
+    public List<User> findActiveAdmins() {
+        return repository.findActiveAdmins(UserRole.ADMIN, Status.ACTIVE);
     }
 }

@@ -42,4 +42,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     )
     boolean existsByIdIsNotAndEmailIsCustomQuery(Integer id, String email);
 
+    @Query(
+        "SELECT u FROM User u WHERE u.role = :role and u.status = :status"
+    )
+    List<User> findActiveAdmins(UserRole role, Status status);
+
 }
