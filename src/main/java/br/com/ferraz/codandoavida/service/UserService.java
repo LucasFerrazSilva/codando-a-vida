@@ -1,6 +1,7 @@
 package br.com.ferraz.codandoavida.service;
 
 import br.com.ferraz.codandoavida.dto.UserDTO;
+import br.com.ferraz.codandoavida.enums.Status;
 import br.com.ferraz.codandoavida.model.User;
 import br.com.ferraz.codandoavida.repository.UserRepository;
 import org.springframework.data.domain.Page;
@@ -29,7 +30,7 @@ public class UserService {
 
     public Page<User> findAllActive(UserDTO dto, Pageable pageable) {
         return repository.findByStatusAndNameAndEmailAndRole(
-                "ACTIVE", dto.getName(), dto.getEmail(), dto.getRole(), pageable
+            Status.ACTIVE, dto.getName(), dto.getEmail(), dto.getRole(), pageable
         );
     }
 

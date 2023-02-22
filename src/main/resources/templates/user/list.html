@@ -30,13 +30,12 @@
           <div class="col">
             <select class="form-select" name="role" th:field="*{role}">
               <option selected value="">Permissões</option>
-              <option value="ADMIN">Admin</option>
-              <option value="USER">User</option>
+              <option data-th-each="userRole: ${userRoles}" data-th-text="${userRole}" th:value="${userRole}"></option>
             </select>
           </div>
 
           <div class="col-1">
-            <button type="submit" class="btn btn-secondary"><i class="bi-search"></i></button>
+            <button type="submit" class="btn btn-primary"><i class="bi-search"></i></button>
           </div>
 
           <input id="page-number-input" type="hidden" name="page" th:value="${users.pageable.pageNumber}" />
@@ -50,6 +49,8 @@
         <th scope="col">Nome</th>
         <th scope="col">E-mail</th>
         <th scope="col">Permissões</th>
+        <th scope="col">Data de Criação</th>
+        <th scope="col">Última Atualização</th>
         <th scope="col">Ações</th>
       </tr>
       </thead>
@@ -58,6 +59,8 @@
         <td data-th-text="${user.name}"></td>
         <td data-th-text="${user.email}"></td>
         <td data-th-text="${user.role}"></td>
+        <td data-th-text="${{user.creationDate}}"></td>
+        <td data-th-text="${{user.updateDate}}"></td>
         <td>
           <a th:href="@{'/user/' + ${user.id}}">Editar</a>
           <a th:href="@{'/user/delete/' + ${user.id}}">Excluir</a>

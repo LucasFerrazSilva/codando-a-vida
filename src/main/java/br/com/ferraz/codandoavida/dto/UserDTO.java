@@ -1,9 +1,8 @@
 package br.com.ferraz.codandoavida.dto;
 
+import br.com.ferraz.codandoavida.enums.UserRole;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -20,12 +19,12 @@ public class UserDTO {
     private String email;
     @NotBlank(message="o campo Senha não pode estar vazio")
     private String password;
-    @NotBlank(message="o campo Permissões não pode estar vazio")
-    private String role;
+    @NotNull(message="o campo Permissões não pode estar vazio")
+    private UserRole role;
 
     public UserDTO() {}
 
-    public UserDTO(Integer id, String name, String email, String password, String role) {
+    public UserDTO(Integer id, String name, String email, String password, UserRole role) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -74,11 +73,11 @@ public class UserDTO {
         this.password = password;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 }

@@ -1,30 +1,23 @@
 package br.com.ferraz.codandoavida.controller;
 
 import br.com.ferraz.codandoavida.dto.UserDTO;
+import br.com.ferraz.codandoavida.enums.UserRole;
 import br.com.ferraz.codandoavida.model.User;
 import br.com.ferraz.codandoavida.service.UserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
-import javax.validation.Validator;
-import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.joining;
 
 @Controller
 @RequestMapping("/user")
@@ -42,6 +35,7 @@ public class UserController {
         Page<User> page = service.findAllActive(dto, pageable);
         view.addObject("users", page);
         view.addObject("dto", dto);
+        view.addObject("userRoles", UserRole.values());
         return view;
     }
 
@@ -49,6 +43,7 @@ public class UserController {
     public ModelAndView create() {
         ModelAndView view = new ModelAndView("user/form");
         view.addObject("user", new User());
+        view.addObject("userRoles", UserRole.values());
         return view;
     }
 
@@ -58,6 +53,7 @@ public class UserController {
             User user = service.findById(id);
             ModelAndView view = new ModelAndView("user/form");
             view.addObject("user", user);
+            view.addObject("userRoles", UserRole.values());
             return view;
         } catch (NoSuchElementException e) {
             redirectAttributes.addFlashAttribute("message", "Invalid id " + id);

@@ -1,6 +1,9 @@
 package br.com.ferraz.codandoavida.model;
 
 import br.com.ferraz.codandoavida.dto.UserDTO;
+import br.com.ferraz.codandoavida.enums.Status;
+import br.com.ferraz.codandoavida.enums.UserRole;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,24 +27,29 @@ public class User {
     @Column(name="PASSWORD", nullable = false, length = 255)
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="ROLE", nullable = false, length = 100)
-    private String role;
+    private UserRole role;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="STATUS", nullable = false, length = 100)
-    private String status;
+    private Status status;
 
+    @DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
     @Column(name="CREATION_DATE", nullable = false)
     private LocalDateTime creationDate;
 
+    @DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
     @Column(name="UPDATE_DATE")
     private LocalDateTime updateDate;
 
     public User() {
         this.creationDate = LocalDateTime.now();
-        this.status = "ACTIVE";
+        this.status = Status.ACTIVE;
     }
 
-    public User(Integer id, String name, String email, String password, String role, String status, LocalDateTime creationDate, LocalDateTime updateDate) {
+    public User(Integer id, String name, String email, String password, UserRole role, Status status,
+                LocalDateTime creationDate, LocalDateTime updateDate) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -61,7 +69,7 @@ public class User {
     }
 
     public void inactivate() {
-        this.status = "INACTIVE";
+        this.status = Status.INACTIVE;
         this.updateDate = LocalDateTime.now();
     }
 
@@ -97,19 +105,19 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
