@@ -55,21 +55,24 @@
       </tr>
       </thead>
       <tbody>
-      <tr data-th-each="user: ${users.content}">
-        <td data-th-text="${user.name}"></td>
-        <td data-th-text="${user.email}"></td>
-        <td data-th-text="${user.role}"></td>
-        <td data-th-text="${{user.creationDate}}"></td>
-        <td data-th-text="${{user.updateDate}}"></td>
-        <td>
-          <a th:href="@{'/user/' + ${user.id}}">Editar</a>
-          <a th:href="@{'/user/delete/' + ${user.id}}">Excluir</a>
-        </td>
-      </tr>
+        <tr data-th-each="user: ${users.content}" th:if="${users.totalPages > 0}">
+          <td data-th-text="${user.name}"></td>
+          <td data-th-text="${user.email}"></td>
+          <td data-th-text="${user.role}"></td>
+          <td data-th-text="${{user.creationDate}}"></td>
+          <td data-th-text="${{user.updateDate}}"></td>
+          <td>
+            <a th:href="@{'/user/' + ${user.id}}">Editar</a>
+            <a th:href="@{'/user/delete/' + ${user.id}}">Excluir</a>
+          </td>
+        </tr>
+        <tr th:unless="${users.totalPages > 0}">
+          <td class="text-center" colspan="6">Nenhum dado encontrado.</td>
+        </tr>
       </tbody>
     </table>
 
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center" th:if="${users.totalPages > 0}">
       <div class="col align-middle">
         <span>
           Mostrando <span th:text="${1 + users.pageable.offset}"></span> a
@@ -86,11 +89,13 @@
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
+
             <li data-th-each="index: ${#numbers.sequence(1, users.totalPages)}"
                 th:class="${users.pageable.pageNumber + 1 == index} ? 'page-item active' : 'page-item'"
                 th:data-pageNumber="${index - 1}">
               <a class="page-link" href="#" th:text="${index}"></a>
             </li>
+
             <li th:class="${users.pageable.pageNumber == users.totalPages - 1} ?  'page-item disabled' : 'page-item'"
                 th:data-pageNumber="${users.pageable.pageNumber + 1}">
               <a class="page-link" href="#" aria-label="Next">

@@ -31,4 +31,15 @@ public interface UserRepository extends JpaRepository<User, Integer> {
         Pageable pageable
     );
 
+    @Query(
+        "SELECT " +
+            "CASE WHEN COUNT(u) > 0 THEN TRUE ELSE FALSE END " +
+        "FROM User u " +
+        "WHERE " +
+            "u.status = 'ACTIVE' " +
+            "AND (u.id != :id OR :id IS NULL) " +
+            "AND LOWER(u.email) = LOWER(:email)"
+    )
+    boolean existsByIdIsNotAndEmailIsCustomQuery(Integer id, String email);
+
 }

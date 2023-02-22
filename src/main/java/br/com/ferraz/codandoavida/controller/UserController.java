@@ -77,6 +77,7 @@ public class UserController {
             ModelAndView view = new ModelAndView("user/form");
             view.addObject("message", e.getMessage());
             view.addObject("user", obj);
+            view.addObject("userRoles", UserRole.values());
             return view;
         }
     }

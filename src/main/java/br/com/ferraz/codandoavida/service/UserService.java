@@ -40,6 +40,9 @@ public class UserService {
 
     @Transactional
     public void save(User obj) {
+        if (repository.existsByIdIsNotAndEmailIsCustomQuery(obj.getId(), obj.getEmail()))
+            throw new IllegalArgumentException("E-mail já está em uso!");
+
         repository.save(obj);
     }
 

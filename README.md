@@ -8,6 +8,7 @@ CRUD de usuários:
 - [X] Adicionar filtros
 - [X] Adicionar paginação
 - [X] Substituir campos String por Enums
+- [X] Validar se email já existe
 
 CRUD de categorias:
 - [ ] Criar tela de listagem
