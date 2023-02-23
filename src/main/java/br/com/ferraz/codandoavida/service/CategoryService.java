@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class CategoryService {
@@ -17,6 +18,10 @@ public class CategoryService {
 
     public CategoryService(CategoryRepository repository) {
         this.repository = repository;
+    }
+
+    public List<Category> findAllActive() {
+        return repository.findByStatus(Status.ACTIVE);
     }
 
     public Page<Category> findAllActive(CategoryDTO dto, Pageable pageable) {
