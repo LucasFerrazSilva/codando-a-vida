@@ -16,8 +16,10 @@ CRUD de categorias:
 - [X] Criar rotina de exclusão
 
 CRUD de Posts:
-- [ ] Criar tela de listagem
+- [X] Criar tela de listagem
+- [ ] Adicionar filtros e paginação na tela de listagem
 - [ ] Criar formulário
+- [ ] Criar rotina de exclusão
 
 Página inicial:
 - [ ] Listar Posts por data
