@@ -1,5 +1,6 @@
 package br.com.ferraz.codandoavida.model;
 
+import br.com.ferraz.codandoavida.dto.CategoryDTO;
 import br.com.ferraz.codandoavida.enums.Status;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,7 +36,10 @@ public class Category {
     @Column(name="UPDATE_DATE")
     private LocalDateTime updateDate;
 
-    public Category() {}
+    public Category() {
+        this.creationDate = LocalDateTime.now();
+        this.status = Status.ACTIVE;
+    }
 
     public Category(Integer id, String name, Status status, User creationUser, LocalDateTime creationDate,
                     LocalDateTime updateDate) {
@@ -108,4 +112,9 @@ public class Category {
         return Objects.hash(id, name, status, creationUser, creationDate, updateDate);
     }
 
+    public void update(CategoryDTO dto) {
+        this.name = dto.getName();
+        this.creationUser = dto.getCreationUser();
+        this.updateDate = LocalDateTime.now();
+    }
 }

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Codando A Vida - Categoria</title>
+  <div th:insert="~{fragments/utils::stylesheets}"></div>
+</head>
+<body>
+  <div th:insert="~{fragments/utils::navbar}"></div>
+
+  <div class="container col-md">
+    <h1 th:text="${user?.id}? 'Editar Categoria' : 'Adicionar Categoria'"></h1>
+    <div th:insert="~{fragments/utils::messages}"></div>
+
+    <form method="POST" th:object="${category}" th:action="@{/category/save}">
+      <input type="hidden" name="id" th:field="*{id}" />
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Nome</label>
+        <input id="name" type="text" class="form-control" name="name" th:field="*{name}"/>
+      </div>
+
+      <div class="mb-3">
+        <label for="role" class="form-label">Criador</label>
+        <select id="role" class="form-select" name="role" th:field="*{creationUser}">
+          <option value="">Selecione</option>
+          <option data-th-each="admin: ${admins}" th:value="${admin.id}" data-th-text="${admin.name}"></option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+  </div>
+
+  <div th:insert="~{fragments/utils::footer}"></div>
+</body>
+</html>

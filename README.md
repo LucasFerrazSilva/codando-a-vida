@@ -11,8 +11,9 @@ CRUD de usuários:
 - [X] Validar se email já existe
 
 CRUD de categorias:
-- [ ] Criar tela de listagem
-- [ ] Criar formulário
+- [X] Criar tela de listagem
+- [X] Criar formulário
+- [ ] Criar rotina de exclusão
 
 CRUD de Posts:
 - [ ] Criar tela de listagem

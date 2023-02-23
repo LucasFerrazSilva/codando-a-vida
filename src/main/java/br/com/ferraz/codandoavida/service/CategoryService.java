@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class CategoryService {
 
@@ -19,5 +21,14 @@ public class CategoryService {
 
     public Page<Category> findAllActive(CategoryDTO dto, Pageable pageable) {
         return repository.findByStatusAndNameAndCreationUser(Status.ACTIVE, dto.getName(), dto.getCreationUser(), pageable);
+    }
+
+    public Category findById(Integer id) {
+        return repository.findById(id).orElseThrow();
+    }
+
+    @Transactional
+    public void save(Category obj) {
+        repository.save(obj);
     }
 }
