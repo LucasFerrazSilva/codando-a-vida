@@ -18,7 +18,8 @@ CRUD de categorias:
 CRUD de Posts:
 - [X] Criar tela de listagem
 - [X] Adicionar filtros e paginação na tela de listagem
-- [ ] Criar formulário
+- [X] Criar formulário
+- [ ] Adicionar WYSIWYG
 - [ ] Criar rotina de exclusão
 
 Página inicial:

@@ -3,14 +3,27 @@ package br.com.ferraz.codandoavida.dto;
 import br.com.ferraz.codandoavida.enums.PostStatus;
 import br.com.ferraz.codandoavida.model.Category;
 import br.com.ferraz.codandoavida.model.User;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.List;
+
+import static java.util.stream.Collectors.joining;
 
 public class PostDTO {
 
     private Integer id;
+    @NotBlank(message="o campo Título não pode estar vazio")
     private String title;
+    @NotBlank(message="o campo Corpo não pode estar vazio")
     private String body;
+    @NotNull(message="o campo Categoria não pode estar vazio")
     private Category category;
+    @NotNull(message="o campo Status não pode estar vazio")
     private PostStatus status;
+    @NotNull(message="o campo Autor não pode estar vazio")
     private User creationUser;
 
     public PostDTO() {}
@@ -70,5 +83,14 @@ public class PostDTO {
 
     public void setCreationUser(User creationUser) {
         this.creationUser = creationUser;
+    }
+
+    public void validate(BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<FieldError> errors = bindingResult.getFieldErrors();
+            String errorsMessage = errors.stream().map(FieldError::getDefaultMessage).collect(joining(", "));
+            String formattedErrorMessage = "Erros: " + errorsMessage + ".";
+            throw new IllegalArgumentException(formattedErrorMessage);
+        }
     }
 }

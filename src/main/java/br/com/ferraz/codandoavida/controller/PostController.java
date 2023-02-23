@@ -12,11 +12,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping("/post")
@@ -49,6 +55,57 @@ public class PostController {
         view.addObject("authors", authors);
 
         return view;
+    }
+
+    @GetMapping("/create")
+    public ModelAndView create() {
+        ModelAndView view = buildFormModelAndView(new Post());
+
+        return view;
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView update(@PathVariable(value="id")Integer id, RedirectAttributes redirectAttributes) {
+        try {
+            ModelAndView view = buildFormModelAndView(service.findById(id));
+
+            return view;
+        } catch (NoSuchElementException e) {
+            redirectAttributes.addFlashAttribute("message", "ID inválido: " + id);
+            return new ModelAndView("redirect:/post");
+        }
+    }
+
+    private ModelAndView buildFormModelAndView(Post obj) {
+        ModelAndView view = new ModelAndView("post/form");
+        view.addObject("obj", obj);
+
+        List<Category> categories = categoryService.findAllActive();
+        view.addObject("categories", categories);
+
+        List<User> admins = userService.findActiveAdmins();
+        view.addObject("admins", admins);
+
+        view.addObject("postStatus", PostStatus.values());
+
+        return view;
+    }
+
+    @PostMapping("/save")
+    public ModelAndView save(@Valid PostDTO dto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        Post obj = (dto.getId() != null ? service.findById(dto.getId()) : new Post());
+
+        try {
+            obj.update(dto);
+            dto.validate(bindingResult);
+            service.save(obj);
+            redirectAttributes.addFlashAttribute("successMessage", "Post " + obj.getTitle() + " salvo com sucesso!");
+            return new ModelAndView("redirect:/post");
+        } catch (Exception e) {
+            ModelAndView view = buildFormModelAndView(obj);
+            view.addObject("message", e.getMessage());
+            return view;
+        }
     }
 
 }
