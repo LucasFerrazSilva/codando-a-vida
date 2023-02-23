@@ -102,5 +102,17 @@ public class CategoryController {
         }
     }
 
+    @GetMapping("/delete/{id}")
+    public ModelAndView inactivate(@PathVariable(value="id") Integer id, RedirectAttributes redirectAttributes) {
+        ModelAndView view = new ModelAndView("redirect:/category");
+        try {
+            Category obj = service.inactivate(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Categoria " + obj.getName() + " excluída com sucesso!");
+        } catch (NoSuchElementException e) {
+            redirectAttributes.addFlashAttribute("message", "ID inválido " + id);
+        } finally {
+            return view;
+        }
+    }
 
 }

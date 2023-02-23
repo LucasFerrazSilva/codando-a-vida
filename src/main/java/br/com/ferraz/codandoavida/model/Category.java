@@ -117,4 +117,9 @@ public class Category {
         this.creationUser = dto.getCreationUser();
         this.updateDate = LocalDateTime.now();
     }
+
+    public void inactivate() {
+        this.status = Status.INACTIVE;
+        this.updateDate = LocalDateTime.now();
+    }
 }

@@ -13,7 +13,7 @@ CRUD de usuários:
 CRUD de categorias:
 - [X] Criar tela de listagem
 - [X] Criar formulário
-- [ ] Criar rotina de exclusão
+- [X] Criar rotina de exclusão
 
 CRUD de Posts:
 - [ ] Criar tela de listagem

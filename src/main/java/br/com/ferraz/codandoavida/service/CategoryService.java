@@ -31,4 +31,12 @@ public class CategoryService {
     public void save(Category obj) {
         repository.save(obj);
     }
+
+    public Category inactivate(Integer id) {
+        Category obj = findById(id);
+        obj.inactivate();
+        save(obj);
+
+        return obj;
+    }
 }
