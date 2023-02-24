@@ -26,6 +26,25 @@
       </sub>
     </header>
     <p th:utext="${post.body}"></p>
+
+    <div class="category">
+      <a class="btn btn-primary" th:text="${post.category.name}" href="#"></a>
+    </div>
+
+    <hr />
+    <h4>Relacionados</h4>
+    <div class="relacionados row">
+      <div data-th-each="related: ${relatedPosts}" class="col-sm-4 mb-3 mb-sm-0">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title" th:text="${related.title}"></h5>
+            <p class="card-text" th:text="${related.description}"></p>
+            <a th:href="@{'/post' + ${related.slug}}" class="card-link stretched-link">Leia mais</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </article>
 </div>
 

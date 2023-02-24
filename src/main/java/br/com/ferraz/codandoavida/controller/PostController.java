@@ -11,12 +11,11 @@ import br.com.ferraz.codandoavida.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -124,13 +123,29 @@ public class PostController {
     public ModelAndView showPost(@PathVariable(value="categoryName") String categoryName,
                                  @PathVariable(value="postTitle") String postTitle, RedirectAttributes redirectAttributes) {
         try {
-            Post obj = service.findByTitle(postTitle);
             ModelAndView view = new ModelAndView("post/read");
+
+            Post obj = service.findByTitle(postTitle);
             view.addObject("post", obj);
+
+            List<Post> related = service.getRelated(obj.getId());
+            view.addObject("relatedPosts", related);
+
             return view;
         } catch (NoSuchElementException e) {
             redirectAttributes.addFlashAttribute("message", "URL inválida");
             return new ModelAndView("redirect:/");
+        }
+    }
+
+    @GetMapping("/relacionados/{id}")
+    @ResponseBody
+    public ResponseEntity<Object> getRelated(@PathVariable(value="id") Integer id) {
+        try {
+            List<Post> related = service.getRelated(id);
+            return ResponseEntity.status(HttpStatus.OK).body(related);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ID inválido " + id);
         }
     }
 

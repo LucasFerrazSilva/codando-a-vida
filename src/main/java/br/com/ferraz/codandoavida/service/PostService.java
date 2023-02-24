@@ -54,4 +54,9 @@ public class PostService {
         return repository.findByTitle(title).orElseThrow();
     }
 
+    public List<Post> getRelated(Integer id) {
+        Post obj = findById(id);
+        List<Post> list = repository.findTop3ByCategoryAndStatusAndIdIsNotOrderByPublishDateDesc(obj.getCategory(), PostStatus.PUBLISHED, id);
+        return list;
+    }
 }

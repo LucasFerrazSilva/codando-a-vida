@@ -32,4 +32,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     Page<Post> findByStatusOrderByPublishDateDesc(PostStatus published, Pageable pageable);
 
     Optional<Post> findByTitle(String title);
+
+    List<Post> findTop3ByCategoryAndStatusAndIdIsNotOrderByPublishDateDesc(Category category, PostStatus status, Integer id);
 }
