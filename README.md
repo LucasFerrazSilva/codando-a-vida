@@ -14,7 +14,7 @@ CRUD de categorias:
 - [X] Criar tela de listagem
 - [X] Criar formulário
 - [X] Criar rotina de exclusão
-- [ ] Criar listagem de posts por categoria
+- [X] Criar listagem de posts por categoria
 
 CRUD de Posts:
 - [X] Criar tela de listagem
@@ -28,8 +28,8 @@ Página inicial:
 - [X] Listar Posts por data
 
 Menu:
-- [ ] Adicionar link para cada categoria
-- [ ] Agrupar CRUDs em aba Admin
+- [X] Adicionar link para cada categoria
+- [X] Agrupar CRUDs em aba Admin
 - [ ] Adicionar barra de pesquisa
 
 Spring Security:

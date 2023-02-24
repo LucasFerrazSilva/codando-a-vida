@@ -10,6 +10,8 @@ import br.com.ferraz.codandoavida.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -130,6 +132,13 @@ public class CategoryController {
         view.addObject("posts", posts);
 
         return view;
+    }
+
+    @GetMapping("/list-active")
+    public ResponseEntity<Object> listActive() {
+        List<Category> categories = service.findAllActive();
+
+        return ResponseEntity.status(HttpStatus.OK).body(categories);
     }
 
 }
