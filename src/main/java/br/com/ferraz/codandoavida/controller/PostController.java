@@ -108,4 +108,16 @@ public class PostController {
         }
     }
 
+    @GetMapping("/delete/{id}")
+    public ModelAndView inactivate(@PathVariable(value="id") Integer id, RedirectAttributes redirectAttributes) {
+        try {
+            Post obj = service.inactivate(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Postagem " + obj.getTitle() + " inativada com sucesso!");
+            return new ModelAndView("redirect:/post");
+        } catch (NoSuchElementException e) {
+            redirectAttributes.addFlashAttribute("message", "ID inválido " + id);
+            return new ModelAndView("redirect:/post");
+        }
+    }
+
 }

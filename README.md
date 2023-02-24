@@ -20,7 +20,7 @@ CRUD de Posts:
 - [X] Adicionar filtros e paginação na tela de listagem
 - [X] Criar formulário
 - [X] Adicionar WYSIWYG
-- [ ] Criar rotina de exclusão
+- [X] Criar rotina de exclusão
 
 Página inicial:
 - [ ] Listar Posts por data

@@ -36,4 +36,11 @@ public class PostService {
     public void save(Post obj) {
         repository.save(obj);
     }
+
+    public Post inactivate(Integer id) {
+        Post obj = findById(id);
+        obj.inactivate();
+        save(obj);
+        return obj;
+    }
 }

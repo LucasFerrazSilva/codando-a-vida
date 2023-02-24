@@ -66,6 +66,22 @@ public class Post {
     }
 
 
+    public void update(PostDTO dto) {
+        this.title = dto.getTitle();
+        this.body = dto.getBody();
+        this.category = dto.getCategory();
+        this.status = dto.getStatus();
+        this.creationUser = dto.getCreationUser();
+
+        this.updateDate = LocalDateTime.now();
+    }
+
+    public void inactivate() {
+        this.status = PostStatus.INACTIVE;
+        this.updateDate = LocalDateTime.now();
+    }
+
+
     public Integer getId() {
         return id;
     }
@@ -149,15 +165,5 @@ public class Post {
     @Override
     public int hashCode() {
         return Objects.hash(id, title, body, category, status, creationUser, creationDate, updateUser, updateDate);
-    }
-
-    public void update(PostDTO dto) {
-        this.title = dto.getTitle();
-        this.body = dto.getBody();
-        this.category = dto.getCategory();
-        this.status = dto.getStatus();
-        this.creationUser = dto.getCreationUser();
-
-        this.updateDate = LocalDateTime.now();
     }
 }
