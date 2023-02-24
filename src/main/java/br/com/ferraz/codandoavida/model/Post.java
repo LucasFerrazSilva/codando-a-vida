@@ -20,6 +20,9 @@ public class Post {
     @Column(name="TITLE", nullable = false)
     private String title;
 
+    @Column(name="DESCRIPTION", nullable = false)
+    private String description;
+
     @Column(name="BODY", nullable = false, columnDefinition = "TEXT")
     private String body;
 
@@ -47,15 +50,20 @@ public class Post {
     @Column(name="UPDATE_DATE")
     private LocalDateTime updateDate;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    @Column(name="PUBLISH_DATE")
+    private LocalDateTime publishDate;
+
     public Post() {
         this.creationDate = LocalDateTime.now();
         this.status = PostStatus.DRAFT;
     }
 
-    public Post(Integer id, String title, String body, Category category, PostStatus status, User creationUser,
-                LocalDateTime creationDate, User updateUser, LocalDateTime updateDate) {
+    public Post(Integer id, String title, String description, String body, Category category, PostStatus status, User creationUser,
+                LocalDateTime creationDate, User updateUser, LocalDateTime updateDate, LocalDateTime publishDate) {
         this.id = id;
         this.title = title;
+        this.description = description;
         this.body = body;
         this.category = category;
         this.status = status;
@@ -63,22 +71,34 @@ public class Post {
         this.creationDate = creationDate;
         this.updateUser = updateUser;
         this.updateDate = updateDate;
+        this.publishDate = publishDate;
     }
 
 
     public void update(PostDTO dto) {
         this.title = dto.getTitle();
+        this.description = dto.getDescription();
         this.body = dto.getBody();
         this.category = dto.getCategory();
         this.status = dto.getStatus();
         this.creationUser = dto.getCreationUser();
-
         this.updateDate = LocalDateTime.now();
+
+        if (this.status.equals(PostStatus.PUBLISHED) && this.publishDate == null)
+            this.publishDate = LocalDateTime.now();
     }
 
     public void inactivate() {
         this.status = PostStatus.INACTIVE;
         this.updateDate = LocalDateTime.now();
+    }
+
+    public String getSlug() {
+        String slug =
+            "/" + this.category.getName().replace(" ", "-") +
+            "/" + this.title.replace(" ", "-");
+
+        return slug;
     }
 
 
@@ -152,6 +172,22 @@ public class Post {
 
     public void setUpdateDate(LocalDateTime updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public LocalDateTime getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(LocalDateTime publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

@@ -18,7 +18,8 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
             "(:title IS NULL OR p.title LIKE CONCAT('%', :title,'%')) " +
             "AND (:category IS NULL OR p.category = :category) " +
             "AND (:status IS NULL OR p.status = :status) " +
-            "AND (:creationUser IS NULL OR p.creationUser = :creationUser) "
+            "AND (:creationUser IS NULL OR p.creationUser = :creationUser) " +
+        "ORDER BY p.publishDate DESC"
     )
     Page<Post> findAll(String title, Category category, PostStatus status, User creationUser, Pageable pageable);
 
@@ -27,4 +28,5 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     )
     List<User> findAuthors();
 
+    Page<Post> findByStatusOrderByPublishDateDesc(PostStatus published, Pageable pageable);
 }

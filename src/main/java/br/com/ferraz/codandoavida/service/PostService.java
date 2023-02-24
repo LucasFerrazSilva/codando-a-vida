@@ -1,6 +1,7 @@
 package br.com.ferraz.codandoavida.service;
 
 import br.com.ferraz.codandoavida.dto.PostDTO;
+import br.com.ferraz.codandoavida.enums.PostStatus;
 import br.com.ferraz.codandoavida.model.Post;
 import br.com.ferraz.codandoavida.model.User;
 import br.com.ferraz.codandoavida.repository.PostRepository;
@@ -42,5 +43,9 @@ public class PostService {
         obj.inactivate();
         save(obj);
         return obj;
+    }
+
+    public Page<Post> findAllPublishedByDate(Pageable pageable) {
+        return repository.findByStatusOrderByPublishDateDesc(PostStatus.PUBLISHED, pageable);
     }
 }

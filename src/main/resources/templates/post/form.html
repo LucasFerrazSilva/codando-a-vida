@@ -26,6 +26,11 @@
             </div>
 
             <div class="mb-3">
+                <label for="description" class="form-label">Descrição</label>
+                <input id="description" type="text" class="form-control" th:field="*{description}"/>
+            </div>
+
+            <div class="mb-3">
                 <label for="category" class="form-label">Categoria</label>
                 <select id="category" class="form-control" th:field="*{category}">
                     <option value="">Selecione uma Categoria</option>

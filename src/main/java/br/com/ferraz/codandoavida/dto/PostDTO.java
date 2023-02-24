@@ -17,6 +17,8 @@ public class PostDTO {
     private Integer id;
     @NotBlank(message="o campo Título não pode estar vazio")
     private String title;
+    @NotBlank(message="o campo Descrição não pode estar vazio")
+    private String description;
     @NotBlank(message="o campo Corpo não pode estar vazio")
     private String body;
     @NotNull(message="o campo Categoria não pode estar vazio")
@@ -28,9 +30,11 @@ public class PostDTO {
 
     public PostDTO() {}
 
-    public PostDTO(Integer id, String title, String body, Category category, PostStatus status, User creationUser) {
+    public PostDTO(Integer id, String title, String description, String body, Category category, PostStatus status,
+                   User creationUser) {
         this.id = id;
         this.title = title;
+        this.description = description;
         this.body = body;
         this.category = category;
         this.status = status;
@@ -83,6 +87,14 @@ public class PostDTO {
 
     public void setCreationUser(User creationUser) {
         this.creationUser = creationUser;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void validate(BindingResult bindingResult) {

@@ -21,9 +21,15 @@ CRUD de Posts:
 - [X] Criar formulário
 - [X] Adicionar WYSIWYG
 - [X] Criar rotina de exclusão
+- [ ] Criar página de visualização do Post
 
 Página inicial:
-- [ ] Listar Posts por data
+- [X] Listar Posts por data
+
+Menu:
+- [ ] Adicionar link para cada categoria
+- [ ] Agrupar CRUDs em aba Admin
+- [ ] Adicionar barra de pesquisa
 
 Spring Security:
 - [ ] Salvar senhas encriptadas
