@@ -28,7 +28,7 @@
     <p th:utext="${post.body}"></p>
 
     <div class="category">
-      <a class="btn btn-primary" th:text="${post.category.name}" href="#"></a>
+      <a class="btn btn-primary btn-sm" th:text="${post.category.name}" th:href="@{'/category/' + ${post.category.name}}"></a>
     </div>
 
     <hr />

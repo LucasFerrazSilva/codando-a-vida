@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
@@ -21,4 +22,6 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     Page<Category> findByStatusAndNameAndCreationUser(Status status, String name, User creationUser, Pageable pageable);
 
     List<Category> findByStatus(Status status);
+
+    Optional<Category> findByName(String name);
 }

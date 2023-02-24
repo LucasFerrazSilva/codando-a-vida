@@ -44,4 +44,8 @@ public class CategoryService {
 
         return obj;
     }
+
+    public Category findByName(String categoryName) {
+        return repository.findByName(categoryName).orElseThrow();
+    }
 }

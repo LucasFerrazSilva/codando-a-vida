@@ -1,10 +1,11 @@
 package br.com.ferraz.codandoavida.controller;
 
 import br.com.ferraz.codandoavida.dto.CategoryDTO;
-import br.com.ferraz.codandoavida.enums.UserRole;
 import br.com.ferraz.codandoavida.model.Category;
+import br.com.ferraz.codandoavida.model.Post;
 import br.com.ferraz.codandoavida.model.User;
 import br.com.ferraz.codandoavida.service.CategoryService;
+import br.com.ferraz.codandoavida.service.PostService;
 import br.com.ferraz.codandoavida.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,9 +30,12 @@ public class CategoryController {
     final private CategoryService service;
     final private UserService userService;
 
-    public CategoryController(CategoryService service, UserService userService) {
+    final private PostService postService;
+
+    public CategoryController(CategoryService service, UserService userService, PostService postService) {
         this.service = service;
         this.userService = userService;
+        this.postService = postService;
     }
 
     @GetMapping
@@ -61,7 +65,7 @@ public class CategoryController {
         return view;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/update/{id}")
     public ModelAndView update(@PathVariable(value="id") Integer id, RedirectAttributes redirectAttributes) {
         try {
             ModelAndView view = new ModelAndView("category/form");
@@ -113,6 +117,19 @@ public class CategoryController {
         } finally {
             return view;
         }
+    }
+
+    @GetMapping("/{categoryName}")
+    public ModelAndView listPosts(@PathVariable(value="categoryName") String categoryName) {
+        ModelAndView view = new ModelAndView("category/read");
+
+        Category category = service.findByName(categoryName);
+        view.addObject("category", category);
+
+        List<Post> posts = postService.findByCategory(category);
+        view.addObject("posts", posts);
+
+        return view;
     }
 
 }

@@ -34,4 +34,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     Optional<Post> findByTitle(String title);
 
     List<Post> findTop3ByCategoryAndStatusAndIdIsNotOrderByPublishDateDesc(Category category, PostStatus status, Integer id);
+
+    List<Post> findByCategoryAndStatusOrderByPublishDateDesc(Category category, PostStatus status);
 }

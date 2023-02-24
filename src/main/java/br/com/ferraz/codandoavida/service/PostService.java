@@ -2,6 +2,7 @@ package br.com.ferraz.codandoavida.service;
 
 import br.com.ferraz.codandoavida.dto.PostDTO;
 import br.com.ferraz.codandoavida.enums.PostStatus;
+import br.com.ferraz.codandoavida.model.Category;
 import br.com.ferraz.codandoavida.model.Post;
 import br.com.ferraz.codandoavida.model.User;
 import br.com.ferraz.codandoavida.repository.PostRepository;
@@ -58,5 +59,9 @@ public class PostService {
         Post obj = findById(id);
         List<Post> list = repository.findTop3ByCategoryAndStatusAndIdIsNotOrderByPublishDateDesc(obj.getCategory(), PostStatus.PUBLISHED, id);
         return list;
+    }
+
+    public List<Post> findByCategory(Category category) {
+        return repository.findByCategoryAndStatusOrderByPublishDateDesc(category, PostStatus.PUBLISHED);
     }
 }
