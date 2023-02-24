@@ -120,4 +120,18 @@ public class PostController {
         }
     }
 
+    @GetMapping("/{categoryName}/{postTitle}")
+    public ModelAndView showPost(@PathVariable(value="categoryName") String categoryName,
+                                 @PathVariable(value="postTitle") String postTitle, RedirectAttributes redirectAttributes) {
+        try {
+            Post obj = service.findByTitle(postTitle);
+            ModelAndView view = new ModelAndView("post/read");
+            view.addObject("post", obj);
+            return view;
+        } catch (NoSuchElementException e) {
+            redirectAttributes.addFlashAttribute("message", "URL inválida");
+            return new ModelAndView("redirect:/");
+        }
+    }
+
 }

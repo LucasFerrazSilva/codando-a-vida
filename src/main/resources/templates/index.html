@@ -25,7 +25,7 @@
                     <span th:text="${{post.publishDate}}"></span>
                 </h6>
                 <p class="card-text" th:text="${post.description}"></p>
-                <a class="card-link stretched-link" th:href="${post.slug}">Leia Mais</a>
+                <a class="card-link stretched-link" th:href="@{'/post' + ${post.slug}}">Leia Mais</a>
             </div>
         </article>
     </div>

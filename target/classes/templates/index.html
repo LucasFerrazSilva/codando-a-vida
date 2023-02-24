@@ -7,7 +7,29 @@
 </head>
 <body>
     <div th:insert="~{fragments/utils::navbar}"></div>
-    <h1>Bem-vindo ao Codando A Vida, o seu blog de programação!</h1>
+
+    <div class="container">
+        <div th:insert="~{fragments/utils::messages}"></div>
+
+        <article class="card" data-th-each="post: ${posts}">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${post.title}"></h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    <i class="bi-bookmark"></i>
+                    <span th:text="${post.category.name}"></span>
+
+                    <i class="bi-person"></i>
+                    <span th:text="${post.creationUser.name} + ' '"></span>
+
+                    <i class="bi-calendar"></i>
+                    <span th:text="${{post.publishDate}}"></span>
+                </h6>
+                <p class="card-text" th:text="${post.description}"></p>
+                <a class="card-link stretched-link" th:href="@{'/post' + ${post.slug}}">Leia Mais</a>
+            </div>
+        </article>
+    </div>
+
     <div th:insert="~{fragments/utils::footer}"></div>
 </body>
 </html>

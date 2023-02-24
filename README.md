@@ -21,7 +21,7 @@ CRUD de Posts:
 - [X] Criar formulário
 - [X] Adicionar WYSIWYG
 - [X] Criar rotina de exclusão
-- [ ] Criar página de visualização do Post
+- [X] Criar página de visualização do Post
 
 Página inicial:
 - [X] Listar Posts por data

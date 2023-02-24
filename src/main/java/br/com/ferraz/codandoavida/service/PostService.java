@@ -48,4 +48,10 @@ public class PostService {
     public Page<Post> findAllPublishedByDate(Pageable pageable) {
         return repository.findByStatusOrderByPublishDateDesc(PostStatus.PUBLISHED, pageable);
     }
+
+    public Post findByTitle(String title) {
+        title = title.replace("-", " ");
+        return repository.findByTitle(title).orElseThrow();
+    }
+
 }
