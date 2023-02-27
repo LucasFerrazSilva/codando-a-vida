@@ -61,7 +61,7 @@ public class PostService {
         return list;
     }
 
-    public List<Post> findByCategory(Category category) {
-        return repository.findByCategoryAndStatusOrderByPublishDateDesc(category, PostStatus.PUBLISHED);
+    public Page<Post> findByCategory(Category category, Pageable pageable) {
+        return repository.findByCategoryAndStatusOrderByPublishDateDesc(category, PostStatus.PUBLISHED, pageable);
     }
 }

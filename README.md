@@ -26,7 +26,7 @@ CRUD de Posts:
 
 Página inicial:
 - [X] Listar Posts por data
-- [ ] Adicionar paginação na página inicial/de busca
+- [X] Adicionar paginação na página inicial/de busca
 
 Menu:
 - [X] Adicionar link para cada categoria

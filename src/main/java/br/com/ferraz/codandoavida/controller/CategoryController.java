@@ -122,13 +122,13 @@ public class CategoryController {
     }
 
     @GetMapping("/{categoryName}")
-    public ModelAndView listPosts(@PathVariable(value="categoryName") String categoryName) {
+    public ModelAndView listPosts(@PathVariable(value="categoryName") String categoryName, @PageableDefault(size=5) Pageable pageable) {
         ModelAndView view = new ModelAndView("category/read");
 
         Category category = service.findByName(categoryName);
         view.addObject("category", category);
 
-        List<Post> posts = postService.findByCategory(category);
+        Page<Post> posts = postService.findByCategory(category, pageable);
         view.addObject("posts", posts);
 
         return view;
