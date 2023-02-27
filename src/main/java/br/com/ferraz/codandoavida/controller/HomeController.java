@@ -23,11 +23,12 @@ public class HomeController {
     }
 
     @GetMapping
-    public ModelAndView index(@PageableDefault Pageable pageable) {
+    public ModelAndView index(String search, @PageableDefault Pageable pageable) {
         ModelAndView view = new ModelAndView("index");
 
-        Page<Post> posts = postService.findAllPublishedByDate(pageable);
+        Page<Post> posts = postService.findAllPublishedByDate(pageable, search);
         view.addObject("posts", posts);
+        view.addObject("search", search);
 
         return view;
     }

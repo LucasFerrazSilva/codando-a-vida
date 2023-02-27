@@ -26,11 +26,12 @@ CRUD de Posts:
 
 Página inicial:
 - [X] Listar Posts por data
+- [ ] Adicionar paginação na página inicial/de busca
 
 Menu:
 - [X] Adicionar link para cada categoria
 - [X] Agrupar CRUDs em aba Admin
-- [ ] Adicionar barra de pesquisa
+- [X] Adicionar barra de pesquisa
 
 Spring Security:
 - [ ] Salvar senhas encriptadas

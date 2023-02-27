@@ -29,6 +29,11 @@
                         </li>
                     </ul>
                 </div>
+
+                <form th:action="@{/}" class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" name="search" th:value="${search}" placeholder="Buscar" aria-label="Search"/>
+                    <button type="submit" class="btn btn-primary"><i class="bi-search"></i></button>
+                </form>
             </div>
         </nav>
 

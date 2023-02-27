@@ -29,7 +29,16 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     )
     List<User> findAuthors();
 
-    Page<Post> findByStatusOrderByPublishDateDesc(PostStatus published, Pageable pageable);
+    @Query(
+        "SELECT p FROM Post p WHERE " +
+            "p.status = :status AND (" +
+                "(:search IS NULL OR p.title LIKE CONCAT('%', :search, '%')) " +
+                "OR (:search IS NULL OR p.description LIKE CONCAT('%', :search, '%')) " +
+                "OR (:search IS NULL OR p.body LIKE CONCAT('%', :search, '%')) " +
+            ") " +
+        "ORDER BY p.publishDate DESC "
+    )
+    Page<Post> findByStatusAndSearchOrderByPublishDateDesc(PostStatus status, String search, Pageable pageable);
 
     Optional<Post> findByTitle(String title);
 

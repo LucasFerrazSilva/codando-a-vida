@@ -46,8 +46,8 @@ public class PostService {
         return obj;
     }
 
-    public Page<Post> findAllPublishedByDate(Pageable pageable) {
-        return repository.findByStatusOrderByPublishDateDesc(PostStatus.PUBLISHED, pageable);
+    public Page<Post> findAllPublishedByDate(Pageable pageable, String search) {
+        return repository.findByStatusAndSearchOrderByPublishDateDesc(PostStatus.PUBLISHED, search, pageable);
     }
 
     public Post findByTitle(String title) {
