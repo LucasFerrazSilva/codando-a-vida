@@ -9,7 +9,6 @@ public class CodandoAVidaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CodandoAVidaApplication.class, args);
-		System.out.println(new BCryptPasswordEncoder().encode("carina"));
 	}
 
 }

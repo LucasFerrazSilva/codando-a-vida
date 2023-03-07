@@ -37,12 +37,13 @@ Spring Security:
 - [ ] Salvar senhas encriptadas
 - [ ] Só deixar selecionar a ROLE se for ADMIN
 - [ ] Alterar form para não poder alterar senha
-- [ ] Criar tela de login
+- [X] Criar tela de login
 - [ ] Criar tela de esqueci a senha
 - [ ] Criar rotina de envio de e-mail para alteração de senha
 - [ ] Criar tela de alteração de senha
 - [ ] Criar rotina de login (gravar usuário na sessão)
-- [ ] Adicionar validação de Role para acesso à páginas de CRUD
+- [X] Adicionar validação de Role para acesso à páginas de CRUD
+- [ ] Adicionar página genérica de erro
 
 Testes:
 - [ ] Criar testes automatizados

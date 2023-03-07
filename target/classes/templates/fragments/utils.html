@@ -18,14 +18,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul id="navbar-ul" class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li id="admin-dropdown" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Admin
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" aria-current="page" th:href="@{/post}">Postagens</a></li>
-                                <li><a class="dropdown-item" aria-current="page" th:href="@{/category}">Categorias</a></li>
-                                <li><a class="dropdown-item" aria-current="page" th:href="@{/user}">Usuários</a></li>
-                            </ul>
+                            <div sec:authorize="hasRole('ADMIN')">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Admin
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" aria-current="page" th:href="@{/post}">Postagens</a></li>
+                                    <li><a class="dropdown-item" aria-current="page" th:href="@{/category}">Categorias</a></li>
+                                    <li><a class="dropdown-item" aria-current="page" th:href="@{/user}">Usuários</a></li>
+                                </ul>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -35,8 +37,20 @@
                     <button type="submit" class="btn btn-primary"><i class="bi-search"></i></button>
                 </form>
 
-                <div class="d-flex" sec:authorize="isAuthenticated()">
-                    <span sec:authentication="name"></span>
+                <div sec:authorize="isAuthenticated()">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span sec:authentication="name"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" th:href="@{/logout}">Sair</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div th:if="${#authentication.name == 'anonymousUser'}">
+                    <a th:href="@{/login}" class="nav-link">Entrar</a>
                 </div>
             </div>
         </nav>

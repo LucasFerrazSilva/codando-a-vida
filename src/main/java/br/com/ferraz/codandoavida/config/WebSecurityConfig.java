@@ -26,7 +26,9 @@ public class WebSecurityConfig {
                     .logoutSuccessUrl("/")
                 .and()
                     .authorizeHttpRequests()
-                    .antMatchers(HttpMethod.GET, "/post").authenticated()
+                    .antMatchers(HttpMethod.GET, "/post").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.GET, "/category").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
                     .anyRequest().permitAll()
                 .and()
                     .build();
