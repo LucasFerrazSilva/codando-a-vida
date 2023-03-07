@@ -7,6 +7,8 @@ import br.com.ferraz.codandoavida.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,9 +26,11 @@ import java.util.NoSuchElementException;
 public class UserController {
 
     private final UserService service;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public UserController(UserService service) {
         this.service = service;
+//        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
@@ -66,6 +70,7 @@ public class UserController {
         User obj = (dto.getId() != null ? service.findById(dto.getId()) : new User());
 
         try {
+            dto.encodePassword(passwordEncoder);
             obj.update(dto);
             dto.validate(bindingResult);
             service.save(obj);

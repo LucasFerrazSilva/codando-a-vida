@@ -1,6 +1,7 @@
 package br.com.ferraz.codandoavida.dto;
 
 import br.com.ferraz.codandoavida.enums.UserRole;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
@@ -17,7 +18,6 @@ public class UserDTO {
     private String name;
     @NotBlank(message="o campo E-mail não pode estar vazio")
     private String email;
-    @NotBlank(message="o campo Senha não pode estar vazio")
     private String password;
     @NotNull(message="o campo Permissões não pode estar vazio")
     private UserRole role;
@@ -39,6 +39,11 @@ public class UserDTO {
             String formattedErrorMessage = "Erros: " + errorsMessage + ".";
             throw new IllegalArgumentException(formattedErrorMessage);
         }
+    }
+
+    public void encodePassword(PasswordEncoder passwordEncoder) {
+        if (this.password != null)
+            this.password = passwordEncoder.encode(this.password);
     }
 
     public Integer getId() {
@@ -80,4 +85,5 @@ public class UserDTO {
     public void setRole(UserRole role) {
         this.role = role;
     }
+
 }
