@@ -49,7 +49,7 @@
                         </li>
                     </ul>
                 </div>
-                <div th:if="${#authentication.name == 'anonymousUser'}">
+                <div class="login-div" th:if="${#authentication.name == 'anonymousUser'}">
                     <a th:href="@{/login}" class="nav-link">Entrar</a>
                 </div>
             </div>

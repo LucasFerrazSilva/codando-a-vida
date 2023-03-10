@@ -34,15 +34,13 @@ Menu:
 - [X] Adicionar barra de pesquisa
 
 Spring Security:
-- [ ] Salvar senhas encriptadas
-- [ ] Só deixar selecionar a ROLE se for ADMIN
-- [ ] Alterar form para não poder alterar senha
+- [X] Salvar senhas encriptadas
 - [X] Criar tela de login
+- [X] Adicionar validação de Role para acesso à páginas de CRUD
+- [X] Criar rotina de login (gravar usuário na sessão)
+- [X] Criar tela de cadastro e tela de alteração de ROLE
 - [ ] Criar tela de esqueci a senha
 - [ ] Criar rotina de envio de e-mail para alteração de senha
-- [ ] Criar tela de alteração de senha
-- [ ] Criar rotina de login (gravar usuário na sessão)
-- [X] Adicionar validação de Role para acesso à páginas de CRUD
 - [ ] Adicionar página genérica de erro
 
 Testes:

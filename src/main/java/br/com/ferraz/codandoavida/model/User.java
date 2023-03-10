@@ -68,10 +68,15 @@ public class User implements Serializable, UserDetails {
         this.updateDate = updateDate;
     }
 
-    public void update(UserDTO dto) {
+    public void create(UserDTO dto) {
         this.name = dto.getName();
         this.email = dto.getEmail();
         this.password = Optional.ofNullable(dto.getPassword()).orElse(this.password) ;
+        this.role = dto.getRole() != null ? dto.getRole() : UserRole.USER;
+        this.updateDate = LocalDateTime.now();
+    }
+
+    public void update(UserDTO dto) {
         this.role = dto.getRole();
         this.updateDate = LocalDateTime.now();
     }

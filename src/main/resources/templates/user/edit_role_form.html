@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Codando A Vida - Usuário</title>
+  <div th:insert="~{fragments/utils::stylesheets}"></div>
+</head>
+<body>
+<div th:insert="~{fragments/utils::navbar}"></div>
+
+<div class="container col-4">
+  <h1 th:text="'Editar Usuário ' + ${user.name}"></h1>
+  <div th:insert="~{fragments/utils::messages}"></div>
+
+  <form method="POST" th:object="${user}" th:action="@{'/user/save/' + ${user.id}}">
+    <input type="hidden" name="id" th:field="*{id}" />
+
+    <div class="mb-3">
+      <label for="role" class="form-label">Permissões</label>
+      <select id="role" class="form-select" name="role" th:field="*{role}">
+        <option data-th-each="userRole: ${userRoles}" th:value="${userRole}" data-th-text="${userRole}"></option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+  </form>
+</div>
+
+<div th:insert="~{fragments/utils::footer}"></div>
+</body>
+</html>

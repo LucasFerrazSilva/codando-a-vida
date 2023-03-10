@@ -8,7 +8,7 @@
 <body>
 <div th:insert="~{fragments/utils::navbar}"></div>
 
-<div class="container col-md col-2">
+<div class="container col-md col-3">
   <h1>Login</h1>
   <p th:if="${loginError}" class="error">Usuário/senha inválidos.</p>
   <form th:action="@{/login}" method="post">
@@ -20,6 +20,7 @@
     <br />
     <button type="submit" class="btn btn-primary">Entrar</button>
   </form>
+  <p>Não tem uma conta? Cadastre-se <a class="link" th:href="@{/user/create}">aqui</a>.</p>
 </div>
 
 <div th:insert="~{fragments/utils::footer}"></div>

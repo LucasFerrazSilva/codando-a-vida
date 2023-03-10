@@ -7,7 +7,6 @@ import br.com.ferraz.codandoavida.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -26,11 +25,11 @@ import java.util.NoSuchElementException;
 public class UserController {
 
     private final UserService service;
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService service) {
+    public UserController(UserService service, PasswordEncoder passwordEncoder) {
         this.service = service;
-//        this.passwordEncoder = passwordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
@@ -52,10 +51,10 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView update(@PathVariable(value="id") Integer id, RedirectAttributes redirectAttributes) {
+    public ModelAndView updateRoleForm(@PathVariable(value="id") Integer id, RedirectAttributes redirectAttributes) {
         try {
             User user = service.findById(id);
-            ModelAndView view = new ModelAndView("user/form");
+            ModelAndView view = new ModelAndView("user/edit_role_form");
             view.addObject("user", user);
             view.addObject("userRoles", UserRole.values());
             return view;
@@ -71,15 +70,36 @@ public class UserController {
 
         try {
             dto.encodePassword(passwordEncoder);
-            obj.update(dto);
+            obj.create(dto);
             dto.validate(bindingResult);
             service.save(obj);
 
-            ModelAndView view = new ModelAndView("redirect:/user");
+            ModelAndView view = new ModelAndView(UserRole.ADMIN.equals(obj.getRole()) ? "redirect:/user" : "redirect:/");
             redirectAttributes.addFlashAttribute("successMessage", "Usuário " + obj.getName() + " salvo com sucesso!");
             return view;
         } catch (IllegalArgumentException e) {
             ModelAndView view = new ModelAndView("user/form");
+            view.addObject("message", e.getMessage());
+            view.addObject("user", obj);
+            view.addObject("userRoles", UserRole.values());
+            return view;
+        }
+    }
+
+    @PostMapping("/save/{id}")
+    public ModelAndView update(@Valid UserDTO dto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        User obj = service.findById(dto.getId());
+
+        try {
+            dto.encodePassword(passwordEncoder);
+            obj.update(dto);
+            service.save(obj);
+
+            ModelAndView view = new ModelAndView("redirect:/user");
+            redirectAttributes.addFlashAttribute("successMessage", "Usuário " + obj.getName() + " atualizado com sucesso!");
+            return view;
+        } catch (IllegalArgumentException e) {
+            ModelAndView view = new ModelAndView("user/edit_role_form");
             view.addObject("message", e.getMessage());
             view.addObject("user", obj);
             view.addObject("userRoles", UserRole.values());

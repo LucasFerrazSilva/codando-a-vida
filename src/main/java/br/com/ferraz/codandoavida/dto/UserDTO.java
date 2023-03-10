@@ -19,7 +19,6 @@ public class UserDTO {
     @NotBlank(message="o campo E-mail não pode estar vazio")
     private String email;
     private String password;
-    @NotNull(message="o campo Permissões não pode estar vazio")
     private UserRole role;
 
     public UserDTO() {}
