@@ -8,8 +8,8 @@
 <body>
   <div th:insert="~{fragments/utils::navbar}"></div>
 
-  <div class="container col-md">
-    <h1 th:text="${user?.id}? 'Editar Usuário' : 'Adicionar Usuário'"></h1>
+  <div class="container col-md col-4">
+    <h1>Cadastrar</h1>
     <div th:insert="~{fragments/utils::messages}"></div>
 
     <form method="POST" th:object="${user}" th:action="@{/user/save}">
@@ -30,7 +30,7 @@
         <input id="password" type="password" class="form-control" name="password" th:field="*{password}" />
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3" sec:authorize="hasRole('ADMIN')">
         <label for="role" class="form-label">Permissões</label>
         <select id="role" class="form-select" name="role" th:field="*{role}">
           <option data-th-each="userRole: ${userRoles}" th:value="${userRole}" data-th-text="${userRole}"></option>

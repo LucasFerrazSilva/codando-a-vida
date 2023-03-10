@@ -41,7 +41,7 @@ Spring Security:
 - [X] Criar tela de cadastro e tela de alteração de ROLE
 - [ ] Criar tela de esqueci a senha
 - [ ] Criar rotina de envio de e-mail para alteração de senha
-- [ ] Adicionar página genérica de erro
+- [X] Adicionar página genérica de erro
 
 Testes:
 - [ ] Criar testes automatizados
