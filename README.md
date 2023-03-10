@@ -39,9 +39,9 @@ Spring Security:
 - [X] Adicionar validação de Role para acesso à páginas de CRUD
 - [X] Criar rotina de login (gravar usuário na sessão)
 - [X] Criar tela de cadastro e tela de alteração de ROLE
-- [ ] Criar tela de esqueci a senha
-- [ ] Criar rotina de envio de e-mail para alteração de senha
 - [X] Adicionar página genérica de erro
+- [X] Criar tela de esqueci a senha
+- [ ] Criar rotina de envio de e-mail para alteração de senha
 
 Testes:
 - [ ] Criar testes automatizados

@@ -50,4 +50,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findActiveAdmins(UserRole role, Status status);
 
     Optional<UserDetails> findByName(String name);
+
+    Optional<User> findByStatusAndEmail(Status status, String email);
 }

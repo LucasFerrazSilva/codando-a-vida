@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class UserService {
@@ -55,5 +56,11 @@ public class UserService {
 
     public List<User> findActiveAdmins() {
         return repository.findActiveAdmins(UserRole.ADMIN, Status.ACTIVE);
+    }
+
+    public User findByEmail(String email) {
+        return repository
+                .findByStatusAndEmail(Status.ACTIVE, email)
+                .orElseThrow(() -> new NoSuchElementException("Nenhum usuário encontrado para o e-mail " + email));
     }
 }
