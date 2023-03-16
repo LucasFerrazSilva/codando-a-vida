@@ -40,8 +40,13 @@ Spring Security:
 - [X] Criar rotina de login (gravar usuário na sessão)
 - [X] Criar tela de cadastro e tela de alteração de ROLE
 - [X] Adicionar página genérica de erro
+
+Spring Mail:
 - [X] Criar tela de esqueci a senha
-- [ ] Criar rotina de envio de e-mail para alteração de senha
+- [X] Criar rotina de envio de e-mail para alteração de senha
+
+Spring Logging:
+- [ ] Adicionar logs básicos da aplicação
 
 Testes:
 - [ ] Criar testes automatizados

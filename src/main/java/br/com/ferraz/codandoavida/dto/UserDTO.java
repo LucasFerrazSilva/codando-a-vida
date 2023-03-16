@@ -6,7 +6,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;

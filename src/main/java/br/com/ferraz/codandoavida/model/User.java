@@ -195,4 +195,18 @@ public class User implements Serializable, UserDetails {
     public int hashCode() {
         return Objects.hash(id, name, email, password, role, status, creationDate, updateDate);
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", status=" + status +
+                ", creationDate=" + creationDate +
+                ", updateDate=" + updateDate +
+                '}';
+    }
 }
